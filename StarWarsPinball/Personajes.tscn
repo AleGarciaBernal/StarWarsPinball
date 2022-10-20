@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://lego.png" type="Texture" id=1]
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 51 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "almirante"
+length = 1.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 51, 52, 53, 51, 52, 53, 51, 52, 53 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "evolucionObiWan"
+length = 4.4
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.18579, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "secundarios"
+length = 3.6
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13, 14, 15, 98, 99, 100, 10, 11, 12, 13, 14, 15, 98, 99, 100 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "almirante"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "evolucionObiWan"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "secundarios"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=15]
+states/almirante/node = SubResource( 11 )
+states/almirante/position = Vector2( 775, 61 )
+states/evolucionObiWan/node = SubResource( 12 )
+states/evolucionObiWan/position = Vector2( 281, 61 )
+states/secundarios/node = SubResource( 17 )
+states/secundarios/position = Vector2( 536, 191.776 )
+transitions = [ "evolucionObiWan", "almirante", SubResource( 13 ), "almirante", "secundarios", SubResource( 18 ), "secundarios", "evolucionObiWan", SubResource( 19 ) ]
+start_node = "evolucionObiWan"
+graph_offset = Vector2( 0, -30.124 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=16]
+
+[node name="Personajes" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 115, 98 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( -1, 0 )
+texture = ExtResource( 1 )
+hframes = 12
+vframes = 9
+frame = 98
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
+anims/RESET = SubResource( 8 )
+anims/almirante = SubResource( 7 )
+anims/evolucionObiWan = SubResource( 9 )
+anims/secundarios = SubResource( 10 )
+
+[node name="AnimationTree" type="AnimationTree" parent="KinematicBody2D"]
+tree_root = SubResource( 15 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 16 )

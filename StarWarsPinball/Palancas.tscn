@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://flipper.gd" type="Script" id=1]
+[ext_resource path="res://sableAzul.png" type="Texture" id=2]
+
+[sub_resource type="PhysicsMaterial" id=2]
+friction = 0.0
+bounce = 0.2
+
+[sub_resource type="SegmentShape2D" id=1]
+a = Vector2( 375, 66 )
+b = Vector2( -221, 66 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 298, 13 )
+
+[node name="Flipper" type="Node2D"]
+position = Vector2( 79, 88 )
+script = ExtResource( 1 )
+snap_angle = 47
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 107, 25 )
+mode = 3
+mass = 15.3061
+physics_material_override = SubResource( 2 )
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( 38, 7 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( 115, 87 )
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+position = Vector2( -127, 78 )
+rotation = 0.312414
+scale = Vector2( 1.10089, 0.490643 )
+texture = ExtResource( 2 )

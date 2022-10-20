@@ -1,0 +1,253 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Palancas.tscn" type="PackedScene" id=1]
+[ext_resource path="res://bb8.png" type="Texture" id=2]
+[ext_resource path="res://Score.gd" type="Script" id=4]
+[ext_resource path="res://starwars.jpeg" type="Texture" id=5]
+[ext_resource path="res://r2d2recortado.png" type="Texture" id=6]
+[ext_resource path="res://stormtrooper.png" type="Texture" id=7]
+[ext_resource path="res://halcon.png" type="Texture" id=8]
+[ext_resource path="res://Personajes.tscn" type="PackedScene" id=9]
+
+[sub_resource type="PhysicsMaterial" id=5]
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 301.813, 13.375 )
+
+[sub_resource type="PhysicsMaterial" id=6]
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 46.5, 398.25 )
+
+[sub_resource type="PhysicsMaterial" id=7]
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 47.2188, 399.141 )
+
+[sub_resource type="PhysicsMaterial" id=20]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 303.938, 2.75 )
+
+[sub_resource type="PhysicsMaterial" id=10]
+friction = 0.0
+bounce = 0.1
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 18.9737
+
+[sub_resource type="PhysicsMaterial" id=14]
+bounce = 2.0
+
+[sub_resource type="CapsuleShape2D" id=15]
+radius = 35.0
+
+[sub_resource type="PhysicsMaterial" id=18]
+friction = 0.0
+bounce = 3.0
+
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 16.0
+
+[sub_resource type="PhysicsMaterial" id=21]
+friction = 0.0
+bounce = 2.0
+
+[sub_resource type="CircleShape2D" id=19]
+radius = 47.0425
+
+[node name="Main" type="Node2D"]
+position = Vector2( 2, 7 )
+
+[node name="Score" type="Label" parent="."]
+margin_left = 230.0
+margin_top = 3.0
+margin_right = 359.0
+margin_bottom = 17.0
+align = 1
+script = ExtResource( 4 )
+
+[node name="ParedArriba" type="RigidBody2D" parent="."]
+position = Vector2( 31, -212 )
+mode = 3
+physics_material_override = SubResource( 5 )
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedArriba"]
+position = Vector2( 262.188, 193 )
+shape = SubResource( 4 )
+
+[node name="ParedIzq" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 6 )
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedIzq"]
+position = Vector2( -50, 389 )
+shape = SubResource( 11 )
+
+[node name="ParedDer" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 7 )
+gravity_scale = 0.0
+contacts_reported = 1000
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedDer"]
+position = Vector2( 644, 390.141 )
+shape = SubResource( 12 )
+
+[node name="ParedAbajo" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 20 )
+contacts_reported = 1000
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedAbajo"]
+position = Vector2( 292, 794 )
+shape = SubResource( 13 )
+
+[node name="Bolita" type="RigidBody2D" parent="."]
+physics_material_override = SubResource( 10 )
+contacts_reported = 500
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bolita"]
+position = Vector2( 208.469, 249.25 )
+shape = SubResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="Bolita"]
+position = Vector2( 208.469, 249.25 )
+scale = Vector2( 0.032746, 0.0323582 )
+texture = ExtResource( 2 )
+
+[node name="PalancaIzq" parent="." instance=ExtResource( 1 )]
+position = Vector2( -187, 400 )
+rotation = 0.523599
+z_index = 1
+snap_time = 0.25
+snap_angle = -30
+
+[node name="PalancaDer" parent="." instance=ExtResource( 1 )]
+position = Vector2( 864, 597 )
+rotation = 2.61799
+z_index = 1
+keycode = "ui_right"
+snap_time = 0.25
+snap_angle = 30
+
+[node name="R2D2" type="RigidBody2D" parent="."]
+position = Vector2( -325, 3 )
+mode = 3
+physics_material_override = SubResource( 14 )
+gravity_scale = 0.0
+contacts_reported = 1000
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="R2D2"]
+position = Vector2( 436.859, 247.5 )
+shape = SubResource( 15 )
+
+[node name="Sprite" type="Sprite" parent="R2D2"]
+position = Vector2( 436.859, 239.75 )
+scale = Vector2( 0.20903, 0.121716 )
+texture = ExtResource( 6 )
+
+[node name="Sprite2" type="Sprite" parent="R2D2"]
+position = Vector2( 436.859, 258.5 )
+rotation = -3.14159
+scale = Vector2( 0.213102, 0.10011 )
+texture = ExtResource( 6 )
+
+[node name="R2D22" type="RigidBody2D" parent="."]
+position = Vector2( -325, 208 )
+mode = 3
+physics_material_override = SubResource( 14 )
+gravity_scale = 0.0
+contacts_reported = 1000
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="R2D22"]
+position = Vector2( 807.859, 40.75 )
+shape = SubResource( 15 )
+
+[node name="Sprite2" type="Sprite" parent="R2D22"]
+position = Vector2( 807.859, 51.75 )
+rotation = -3.14159
+scale = Vector2( 0.213102, 0.10011 )
+texture = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="R2D22"]
+position = Vector2( 807.859, 34.75 )
+scale = Vector2( 0.20903, 0.121716 )
+texture = ExtResource( 6 )
+
+[node name="Fondo" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Fondo"]
+
+[node name="Sprite" type="Sprite" parent="Fondo/ParallaxLayer"]
+position = Vector2( 300, 404 )
+scale = Vector2( 0.377962, 0.774074 )
+texture = ExtResource( 5 )
+
+[node name="Stormtrooper" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 18 )
+gravity_scale = 0.0
+contacts_reported = 500
+contact_monitor = true
+
+[node name="Sprite" type="Sprite" parent="Stormtrooper"]
+position = Vector2( 292.951, 355.5 )
+scale = Vector2( 0.110359, 0.103236 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stormtrooper"]
+position = Vector2( 300.951, 347.5 )
+shape = SubResource( 17 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Stormtrooper"]
+position = Vector2( 284.951, 347.5 )
+shape = SubResource( 17 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stormtrooper"]
+position = Vector2( 81.4332, 111.169 )
+scale = Vector2( 0.71298, 0.706521 )
+polygon = PoolVector2Array( 256, 349, 251, 362, 250, 366, 251, 373, 258, 382, 262, 389, 267, 392, 275, 393, 282, 393, 288, 390, 294, 388, 302, 389, 308, 390, 313, 392, 318, 393, 323, 394, 328, 393, 334, 385, 337, 377, 340, 371, 342, 368, 341, 362, 340, 360, 337, 354, 334, 347 )
+
+[node name="Halcon" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 21 )
+gravity_scale = 0.0
+contacts_reported = 1000
+contact_monitor = true
+
+[node name="Sprite" type="Sprite" parent="Halcon"]
+position = Vector2( 292.045, 118.898 )
+rotation = 3.14159
+scale = Vector2( 0.118822, 0.0827112 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Halcon"]
+position = Vector2( 289.045, 129.898 )
+shape = SubResource( 19 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Halcon"]
+position = Vector2( 2, 6 )
+polygon = PoolVector2Array( 344, 102, 351, 97, 350, 87, 344, 85, 339, 89, 304, 52, 299, 53, 300, 68, 287, 68, 283, 50, 274, 51, 249, 94 )
+
+[node name="Personajes" parent="." instance=ExtResource( 9 )]
+position = Vector2( -80, -78 )
+
+[node name="Personajes2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 451, -78 )
+
+[connection signal="body_entered" from="ParedAbajo" to="Score" method="_on_ParedAbajo_body_entered"]
+[connection signal="body_entered" from="R2D2" to="Score" method="_on_R2D2_body_entered"]
+[connection signal="body_entered" from="R2D22" to="Score" method="_on_R2D22_body_entered"]
+[connection signal="body_entered" from="Stormtrooper" to="Score" method="_on_Stormtrooper_body_entered"]
+[connection signal="body_entered" from="Halcon" to="Score" method="_on_Halcon_body_entered"]
